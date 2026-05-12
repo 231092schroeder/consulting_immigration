@@ -1,0 +1,183 @@
+<div class="container mt-5">
+
+  <div class="card shadow p-4">
+
+    <h2 class="mb-4 text-center">
+      Pré-Análise Migratória
+    </h2>
+
+    <!-- QUESTION FLOW -->
+
+    <div *ngIf="currentQuestion">
+
+      <!-- QUESTION TITLE -->
+
+      <h4 class="mb-4">
+        {{ currentQuestion.question }}
+      </h4>
+
+      <!-- RADIO QUESTIONS -->
+
+      <div *ngIf="currentQuestion.type === 'radio'">
+
+        <button
+          class="btn btn-outline-primary w-100 mb-3"
+          *ngFor="let option of currentQuestion.options"
+          (click)="answer(option)">
+
+          {{ option }}
+
+        </button>
+
+      </div>
+
+      <!-- SELECT QUESTIONS -->
+
+      <div *ngIf="currentQuestion.type === 'select'">
+
+        <button
+          class="btn btn-outline-secondary w-100 mb-3"
+          *ngFor="let option of currentQuestion.options"
+          (click)="answer(option)">
+
+          {{ option }}
+
+        </button>
+
+      </div>
+
+      <!-- RESULT SCREEN -->
+
+      <div *ngIf="currentQuestion.type === 'result'">
+
+        <div class="alert alert-success">
+
+          <h4>
+            {{ currentQuestion.question }}
+          </h4>
+
+          <p>
+            Recomendamos uma consultoria personalizada
+            para análise detalhada do seu caso.
+          </p>
+
+          <div class="d-flex gap-2 mt-3">
+
+            <!-- RESTART -->
+
+            <button
+              class="btn btn-dark"
+              (click)="restart()">
+
+              Recomeçar
+
+            </button>
+
+            <!-- CONTACT BUTTON -->
+
+            <button
+              class="btn btn-primary"
+              (click)="toggleContactForm()">
+
+              Quero ser contactado
+
+            </button>
+
+          </div>
+
+        </div>
+
+        <!-- CONTACT FORM -->
+
+        <div
+          *ngIf="showContactForm"
+          class="card shadow p-4 mt-4">
+
+          <h5 class="mb-4">
+            Formulário de Contacto
+          </h5>
+
+          <!-- FIRST NAME -->
+
+          <div class="mb-3">
+
+            <label class="form-label">
+              Nome
+            </label>
+
+            <input
+              type="text"
+              class="form-control"
+              name="firstName"
+              [(ngModel)]="contactData.firstName">
+
+          </div>
+
+          <!-- LAST NAME -->
+
+          <div class="mb-3">
+
+            <label class="form-label">
+              Sobrenome
+            </label>
+
+            <input
+              type="text"
+              class="form-control"
+              name="lastName"
+              [(ngModel)]="contactData.lastName">
+
+          </div>
+
+          <!-- EMAIL -->
+
+          <div class="mb-3">
+
+            <label class="form-label">
+              Email
+            </label>
+
+            <input
+              type="email"
+              class="form-control"
+              name="email"
+              [(ngModel)]="contactData.email">
+
+          </div>
+
+          <!-- PHONE -->
+
+          <div class="mb-4">
+
+            <label class="form-label">
+              Telefone
+            </label>
+
+            <input
+              type="text"
+              class="form-control"
+              name="phone"
+              [(ngModel)]="contactData.phone">
+
+          </div>
+
+          <!-- SUBMIT -->
+
+          <button
+            type="button"
+            class="btn btn-success w-100"
+            (click)="submitContact()">
+
+            Enviar Pedido
+
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
