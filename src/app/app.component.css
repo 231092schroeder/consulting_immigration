@@ -1,0 +1,15 @@
+body {
+
+  margin: 0;
+
+  font-family: 'Inter', sans-serif;
+
+  background: #f8fafc;
+}
+
+router-outlet {
+
+  display: block;
+
+  padding-top: 110px;
+}

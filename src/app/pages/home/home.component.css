@@ -1,0 +1,127 @@
+.hero {
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
+
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+
+  color: white;
+
+  padding: 20px;
+}
+
+.hero h1 {
+  font-size: 42px;
+  font-weight: 700;
+}
+
+.hero p {
+  font-size: 18px;
+  color: #cbd5e1;
+  margin-top: 10px;
+}
+
+.hero button {
+  margin-top: 20px;
+  padding: 14px 24px;
+
+  background: #f59e0b;
+  border: none;
+  border-radius: 12px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+/* SECTIONS */
+.section,
+.steps,
+.cta {
+  max-width: 900px;
+  margin: 80px auto;
+  text-align: center;
+}
+
+/* STEPS */
+.steps div {
+  margin: 10px 0;
+  padding: 12px;
+  background: #f8fafc;
+  border-radius: 10px;
+}
+
+/**/
+
+.map-section {
+  text-align: center;
+  padding: 80px 20px;
+  max-width: 1000px;
+  margin: auto;
+}
+
+.map-section h2 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.map-section p {
+  color: #64748b;
+  margin-bottom: 40px;
+}
+
+/* MAPA BASE */
+.map-container {
+  position: relative;
+
+  height: 400px;
+
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Europe_blank_map.svg/1024px-Europe_blank_map.svg.png");
+
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  border-radius: 18px;
+
+  box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+}
+
+/* MARCADORES */
+.country {
+  position: absolute;
+
+  padding: 10px 14px;
+
+  background: white;
+
+  border-radius: 12px;
+
+  font-weight: 600;
+
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+
+  transition: 0.3s;
+}
+
+.country:hover {
+  transform: scale(1.05);
+}
+
+/* POSIÇÕES APROXIMADAS */
+.france {
+  top: 40%;
+  left: 55%;
+  color: #1e40af;
+}
+
+.portugal {
+  top: 60%;
+  left: 25%;
+  color: #065f46;
+}
