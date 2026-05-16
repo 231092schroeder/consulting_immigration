@@ -1,6 +1,6 @@
 .france-hero {
   height: 100vh; /* ocupa a tela toda */
-  background-image: url('/paris.jpg');
+  background-image: url('../../../assets/paris.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

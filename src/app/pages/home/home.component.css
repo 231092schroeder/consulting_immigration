@@ -1,6 +1,6 @@
 .hero {
   height: 100vh; /* ocupa a tela toda */
-  background-image: url('/hero.png');
+  background-image: url('../../../assets/hero.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -83,6 +83,8 @@
   gap: 25px;
 
   flex-wrap: wrap;
+  background-image: url('../../../assets/steps.png');
+  background-size: 200px;
 
   padding: 80px 20px;
 
@@ -94,18 +96,16 @@
 /* CARD */
 .step-card {
   background: white;
-
   width: 280px;
-
   border-radius: 18px;
-
   padding: 25px;
-
   text-align: center;
-
   box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-
   transition: 0.3s ease;
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: 120px;
+  padding-top: 160px;
 }
 
 /* HOVER */

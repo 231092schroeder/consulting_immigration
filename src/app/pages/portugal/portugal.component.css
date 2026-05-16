@@ -1,7 +1,7 @@
 
 .portugal-hero {
   height: 100vh; /* ocupa a tela toda */
-  background-image: url('/faro.jpg');
+  background-image: url('../../../assets/faro.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
