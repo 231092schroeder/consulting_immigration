@@ -19,65 +19,1572 @@ export class FormFlowService {
     },
 
     // France Situation
-
     {
       id: 'franceSituation',
-      question: 'Qual é sua situação atual na França?',
+      question: 'Qual serviço você precisa?',
       type: 'radio',
       options: [
-        'Turista',
-        'Sem documentos',
-        'Casado com europeu',
-        'Trabalhando'
+        'Nacionalidade francesa',
+        'Vistos para França',
+        'Troca de carteira de motorista',
+        'Ajudas sociais',
       ],
       next: {
-        'Turista': 'turistFR',
-        'Sem documentos': 'timeInFrance',
-        'Casado com europeu': 'marriageDuration',
-        'Trabalhando': 'workContract'
+        'Nacionalidade francesa' : 'nacionalidadeFR',
+        'Vistos para França' : 'vistosFR',
+        'Troca de carteira de motorista' : 'cnh',
+        'Ajudas sociais' : 'socialFR',
       }
     },
 
+    //VISTOS FR
     {
-      id: 'turistFR',
-      question: 'Há quanto tempo você está na França?',
-      type: 'select',
-      options: [
-        'Menos de 3 meses',
-        '3 a 12 meses',
-        'Mais de 1 ano'
-      ],
-      next: {
-        'Menos de 3 meses': 'negativeResult',
-        '3 a 12 meses': 'positiveResult',
-        'Mais de 1 ano': 'positiveResult'
-      }
-    },
-
-    {
-      id: 'marriageDuration',
-      question: 'Há quanto tempo você é casado(a)?',
-      type: 'select',
-      options: [
-        'Menos de 1 ano',
-        'Mais de 1 ano'
-      ],
-      next: {
-        'Menos de 1 ano': 'negativeResult',
-        'Mais de 1 ano': 'positiveResult'
-      }
-    },
-
-    {
-      id: 'workContract',
-      question: 'Você possui contrato de trabalho?',
+      id: 'vistosFR',
+      question: 'Qual tipo de visto você deseja solicitar para a França?',
       type: 'radio',
-      options: ['Sim', 'Não'],
+      options: [
+        'Visto de trabalho',
+        'Visto férias-trabalho (PVT)',
+        'Visto de estudante',
+        'Visto de família',
+        'Passeport Talent',
+        'Au Pair',
+        'Empreendedor / Empresa',
+        'Não tenho certeza'
+      ],
       next: {
-        'Sim': 'positiveResult',
+        'Visto de trabalho': 'visaTrabalhoFR',
+        'Visto férias-trabalho (PVT)': 'pvtFrance',
+        'Visto de estudante': 'visaEstudanteFR',
+        'Visto de família': 'visaFamiliaFR',
+        'Passeport Talent': 'passeportTalentFR',
+        'Au Pair': 'auPairFR',
+        'Empreendedor / Empresa': 'empreendedorFR',
+        'Não tenho certeza': 'questionFamily'
+      }
+    },
+
+    //Empreendedor FR
+    {
+      id: 'empreendedorFR',
+      question: 'Você já possui uma ideia ou projeto de negócio para a França?',
+      type: 'radio',
+      options: [
+        'Sim, já estruturado',
+        'Tenho uma ideia em desenvolvimento',
+        'Ainda não tenho ideia definida'
+      ],
+      next: {
+        'Sim, já estruturado': 'planoNegocioFR',
+        'Tenho uma ideia em desenvolvimento': 'planoNegocioFR',
+        'Ainda não tenho ideia definida': 'questionFamily'
+      }
+    },
+
+    {
+      id: 'planoNegocioFR',
+      question: 'Você possui um plano de negócios (business plan) formalizado?',
+      type: 'radio',
+      options: [
+        'Sim, completo',
+        'Parcialmente',
+        'Não tenho'
+      ],
+      next: {
+        'Sim, completo': 'setorNegocioFR',
+        'Parcialmente': 'questionFamily',
+        'Não tenho': 'questionFamily'
+      }
+    },
+
+    {
+      id: 'setorNegocioFR',
+      question: 'Em qual setor você pretende atuar na França?',
+      type: 'radio',
+      options: [
+        'Tecnologia / Startups',
+        'Comércio / Loja física ou online',
+        'Restauração / Alimentação',
+        'Serviços (beleza, estética, etc.)',
+        'Importação / Exportação',
+        'Outro'
+      ],
+      next: {
+        'Tecnologia / Startups': 'capitalFR',
+        'Comércio / Loja física ou online': 'capitalFR',
+        'Restauração / Alimentação': 'capitalFR',
+        'Serviços (beleza, estética, etc.)': 'capitalFR',
+        'Importação / Exportação': 'capitalFR',
+        'Outro': 'capitalFR'
+      }
+    },
+
+    {
+      id: 'capitalFR',
+      question: 'Você possui capital para investir na França?',
+      type: 'radio',
+      options: [
+        'Mais de €300.000',
+        'Entre €100.000 e €300.000',
+        'Menos de €100.000',
+        'Não possuo capital'
+      ],
+      next: {
+        'Mais de €300.000': 'experienciaEmpresarialFR',
+        'Entre €100.000 e €300.000': 'experienciaEmpresarialFR',
+        'Menos de €100.000': 'questionFamily',
+        'Não possuo capital': 'negativeResult'
+      }
+    },
+
+    {
+      id: 'experienciaEmpresarialFR',
+      question: 'Você já teve experiência como empreendedor ou gestor?',
+      type: 'radio',
+      options: [
+        'Sim, empresa própria',
+        'Sim, gestão de equipe',
+        'Pouca experiência',
+        'Nenhuma experiência'
+      ],
+      next: {
+        'Sim, empresa própria': 'idiomaEmpreendedorFR',
+        'Sim, gestão de equipe': 'idiomaEmpreendedorFR',
+        'Pouca experiência': 'questionFamily',
+        'Nenhuma experiência': 'questionFamily'
+      }
+    },
+
+    {
+      id: 'idiomaEmpreendedorFR',
+      question: 'Qual seu nível de francês ou inglês?',
+      type: 'radio',
+      options: [
+        'Fluente',
+        'Intermediário',
+        'Básico',
+        'Não falo nenhum'
+      ],
+      next: {
+        'Fluente': 'documentosEmpreendedorFR',
+        'Intermediário': 'documentosEmpreendedorFR',
+        'Básico': 'questionFamily',
+        'Não falo nenhum': 'questionFamily'
+      }
+    },
+
+    {
+      id: 'documentosEmpreendedorFR',
+      question: 'Você possui passaporte válido e documentos profissionais (CV, diplomas, portfólio, empresa)?',
+      type: 'radio',
+      options: [
+        'Sim, completo',
+        'Parcialmente',
+        'Não possuo'
+      ],
+      next: {
+        'Sim, completo': 'historicoEmpreendedorFR',
+        'Parcialmente': 'questionFamily',
+        'Não possuo': 'negativeResult'
+      }
+    },
+
+    {
+      id: 'historicoEmpreendedorFR',
+      question: 'Você já teve visto recusado para França ou outro país europeu?',
+      type: 'radio',
+      options: [
+        'Não',
+        'Sim, uma vez',
+        'Sim, mais de uma vez'
+      ],
+      next: {
+        'Não': 'antecedentesEmpreendedorFR',
+        'Sim, uma vez': 'questionFamily',
+        'Sim, mais de uma vez': 'negativeResult'
+      }
+    },
+
+    {
+      id: 'antecedentesEmpreendedorFR',
+      question: 'Você possui antecedentes criminais?',
+      type: 'radio',
+      options: [
+        'Não',
+        'Sim'
+      ],
+      next: {
+        'Não': 'positiveResult',
+        'Sim': 'negativeResult'
+      }
+    },
+
+    //aupair FR
+    {
+      id: 'auPairFR',
+      question: 'Qual sua idade?',
+      type: 'radio',
+      options: [
+        '18 a 26 anos',
+        '27 a 30 anos',
+        'Menos de 18',
+        'Mais de 30'
+      ],
+      next: {
+        '18 a 26 anos': 'idiomaAuPairFR',
+        '27 a 30 anos': 'questionFamily',
+        'Menos de 18': 'negativeResult',
+        'Mais de 30': 'negativeResult'
+      }
+    },
+
+    {
+      id: 'idiomaAuPairFR',
+      question: 'Qual seu nível de francês?',
+      type: 'radio',
+      options: [
+        'Fluente',
+        'Intermediário',
+        'Básico',
+        'Não falo francês'
+      ],
+      next: {
+        'Fluente': 'experienciaCriançasAuPairFR',
+        'Intermediário': 'experienciaCriançasAuPairFR',
+        'Básico': 'questionFamily',
+        'Não falo francês': 'questionFamily'
+      }
+    },
+
+    {
+      id: 'experienciaCriançasAuPairFR',
+      question: 'Você possui experiência com cuidados de crianças?',
+      type: 'radio',
+      options: [
+        'Sim, mais de 2 anos',
+        'Sim, menos de 2 anos',
+        'Pouca experiência',
+        'Nenhuma experiência'
+      ],
+      next: {
+        'Sim, mais de 2 anos': 'disponibilidadeAuPairFR',
+        'Sim, menos de 2 anos': 'disponibilidadeAuPairFR',
+        'Pouca experiência': 'questionFamily',
+        'Nenhuma experiência': 'negativeResult'
+      }
+    },
+
+    {
+      id: 'disponibilidadeAuPairFR',
+      question: 'Você tem disponibilidade para morar com uma família na França?',
+      type: 'radio',
+      options: [
+        'Sim, totalmente disponível',
+        'Parcialmente disponível',
+        'Não tenho disponibilidade'
+      ],
+      next: {
+        'Sim, totalmente disponível': 'documentosAuPairFR',
+        'Parcialmente disponível': 'questionFamily',
+        'Não tenho disponibilidade': 'negativeResult'
+      }
+    },
+
+    {
+      id: 'documentosAuPairFR',
+      question: 'Você possui passaporte válido e documentos pessoais organizados?',
+      type: 'radio',
+      options: [
+        'Sim',
+        'Parcialmente',
+        'Não'
+      ],
+      next: {
+        'Sim': 'motivacaoAuPairFR',
+        'Parcialmente': 'questionFamily',
         'Não': 'negativeResult'
       }
     },
+
+    {
+      id: 'motivacaoAuPairFR',
+      question: 'Qual seu principal objetivo como Au Pair na França?',
+      type: 'radio',
+      options: [
+        'Aprender francês',
+        'Experiência cultural',
+        'Trabalhar e viajar',
+        'Possível imigração futura',
+        'Ainda não sei'
+      ],
+      next: {
+        'Aprender francês': 'historicoAuPairFR',
+        'Experiência cultural': 'historicoAuPairFR',
+        'Trabalhar e viajar': 'historicoAuPairFR',
+        'Possível imigração futura': 'questionFamily',
+        'Ainda não sei': 'questionFamily'
+      }
+    },
+
+    {
+      id: 'historicoAuPairFR',
+      question: 'Você já teve visto recusado para França ou outro país europeu?',
+      type: 'radio',
+      options: [
+        'Não',
+        'Sim, uma vez',
+        'Sim, mais de uma vez'
+      ],
+      next: {
+        'Não': 'antecedentesAuPairFR',
+        'Sim, uma vez': 'questionFamily',
+        'Sim, mais de uma vez': 'negativeResult'
+      }
+    },
+
+    {
+      id: 'antecedentesAuPairFR',
+      question: 'Você possui antecedentes criminais?',
+      type: 'radio',
+      options: [
+        'Não',
+        'Sim'
+      ],
+      next: {
+        'Não': 'positiveResult',
+        'Sim': 'negativeResult'
+      }
+    },
+
+    //Passport TelentFR
+    {
+      id: 'passeportTalentFR',
+      question: 'Você se enquadra em alguma categoria profissional qualificada para o Passeport Talent?',
+      type: 'radio',
+      options: [
+        'Trabalhador altamente qualificado',
+        'Pesquisador / acadêmico',
+        'Empreendedor / startup',
+        'Investidor',
+        'Artista / profissional cultural',
+        'Não tenho certeza'
+      ],
+      next: {
+        'Trabalhador altamente qualificado': 'qualificacaoTalentFR',
+        'Pesquisador / acadêmico': 'qualificacaoTalentFR',
+        'Empreendedor / startup': 'projetoTalentFR',
+        'Investidor': 'capitalTalentFR',
+        'Artista / profissional cultural': 'experienciaTalentFR',
+        'Não tenho certeza': 'questionFamily'
+      }
+    },
+
+    {
+      id: 'qualificacaoTalentFR',
+      question: 'Você possui diploma superior ou qualificação equivalente?',
+      type: 'radio',
+      options: [
+        'Sim, graduação',
+        'Sim, mestrado/doutorado',
+        'Sim, técnico',
+        'Não possuo diploma'
+      ],
+      next: {
+        'Sim, graduação': 'experienciaTalentFR',
+        'Sim, mestrado/doutorado': 'experienciaTalentFR',
+        'Sim, técnico': 'experienciaTalentFR',
+        'Não possuo diploma': 'negativeResult'
+      }
+    },
+
+    {
+      id: 'experienciaTalentFR',
+      question: 'Quantos anos de experiência profissional você possui?',
+      type: 'radio',
+      options: [
+        'Mais de 10 anos',
+        '5 a 10 anos',
+        '1 a 5 anos',
+        'Menos de 1 ano'
+      ],
+      next: {
+        'Mais de 10 anos': 'idiomaTalentFR',
+        '5 a 10 anos': 'idiomaTalentFR',
+        '1 a 5 anos': 'questionFamily',
+        'Menos de 1 ano': 'negativeResult'
+      }
+    },
+
+    {
+      id: 'projetoTalentFR',
+      question: 'Você possui um projeto de empresa ou startup na França?',
+      type: 'radio',
+      options: [
+        'Sim, já estruturado',
+        'Em desenvolvimento',
+        'Ainda não'
+      ],
+      next: {
+        'Sim, já estruturado': 'idiomaTalentFR',
+        'Em desenvolvimento': 'questionFamily',
+        'Ainda não': 'negativeResult'
+      }
+    },
+
+    {
+      id: 'capitalTalentFR',
+      question: 'Você possui capital para investimento na França?',
+      type: 'radio',
+      options: [
+        'Sim, mais de €300.000',
+        'Sim, entre €100.000 e €300.000',
+        'Menos de €100.000',
+        'Não possuo capital'
+      ],
+      next: {
+        'Sim, mais de €300.000': 'idiomaTalentFR',
+        'Sim, entre €100.000 e €300.000': 'questionFamily',
+        'Menos de €100.000': 'negativeResult',
+        'Não possuo capital': 'negativeResult'
+      }
+    },
+
+    {
+      id: 'idiomaTalentFR',
+      question: 'Qual seu nível de francês ou inglês?',
+      type: 'radio',
+      options: [
+        'Fluente',
+        'Intermediário',
+        'Básico',
+        'Não falo nenhum'
+      ],
+      next: {
+        'Fluente': 'documentosTalentFR',
+        'Intermediário': 'documentosTalentFR',
+        'Básico': 'questionFamily',
+        'Não falo nenhum': 'questionFamily'
+      }
+    },
+
+    {
+      id: 'documentosTalentFR',
+      question: 'Você possui passaporte válido e documentos profissionais (diplomas, contratos, portfólio)?',
+      type: 'radio',
+      options: [
+        'Sim, completo',
+        'Parcialmente',
+        'Não possuo'
+      ],
+      next: {
+        'Sim, completo': 'historicoTalentFR',
+        'Parcialmente': 'questionFamily',
+        'Não possuo': 'negativeResult'
+      }
+    },
+
+    {
+      id: 'historicoTalentFR',
+      question: 'Você já teve visto recusado para França ou outro país europeu?',
+      type: 'radio',
+      options: [
+        'Não',
+        'Sim, uma vez',
+        'Sim, mais de uma vez'
+      ],
+      next: {
+        'Não': 'antecedentesTalentFR',
+        'Sim, uma vez': 'questionFamily',
+        'Sim, mais de uma vez': 'negativeResult'
+      }
+    },
+
+    {
+      id: 'antecedentesTalentFR',
+      question: 'Você possui antecedentes criminais?',
+      type: 'radio',
+      options: [
+        'Não',
+        'Sim'
+      ],
+      next: {
+        'Não': 'positiveResult',
+        'Sim': 'negativeResult'
+      }
+    },
+
+    //visto trabalho FR
+    {
+      id: 'visaTrabalhoFR',
+      question: 'Você já possui uma proposta de trabalho na França?',
+      type: 'radio',
+      options: [
+        'Sim, contrato assinado',
+        'Sim, promessa de contratação',
+        'Ainda não',
+        'Estou procurando vagas'
+      ],
+      next: {
+        'Sim, contrato assinado': 'empresaFrancaFR',
+        'Sim, promessa de contratação': 'empresaFrancaFR',
+        'Ainda não': 'areaProfissionalFR',
+        'Estou procurando vagas': 'areaProfissionalFR'
+      }
+    },
+
+    {
+      id: 'empresaFrancaFR',
+      question: 'A empresa está localizada na França e registrada legalmente?',
+      type: 'radio',
+      options: [
+        'Sim',
+        'Não sei',
+        'Não'
+      ],
+      next: {
+        'Sim': 'tipoContratoFR',
+        'Não sei': 'questionFamily',
+        'Não': 'negativeResult'
+      }
+    },
+
+    {
+      id: 'tipoContratoFR',
+      question: 'Qual o tipo do contrato oferecido?',
+      type: 'radio',
+      options: [
+        'CDI (contrato permanente)',
+        'CDD (contrato temporário)',
+        'Freelance / prestação de serviço',
+        'Não sei'
+      ],
+      next: {
+        'CDI (contrato permanente)': 'salarioFR',
+        'CDD (contrato temporário)': 'salarioFR',
+        'Freelance / prestação de serviço': 'questionFamily',
+        'Não sei': 'questionFamily'
+      }
+    },
+
+    {
+      id: 'salarioFR',
+      question: 'O salário atende ou supera o salário mínimo francês?',
+      type: 'radio',
+      options: [
+        'Sim',
+        'Não sei',
+        'Não'
+      ],
+      next: {
+        'Sim': 'experienciaFR',
+        'Não sei': 'questionFamily',
+        'Não': 'negativeResult'
+      }
+    },
+
+    {
+      id: 'areaProfissionalFR',
+      question: 'Em qual área você pretende trabalhar na França?',
+      type: 'radio',
+      options: [
+        'Tecnologia / TI',
+        'Construção civil',
+        'Hotelaria / turismo',
+        'Saúde',
+        'Restauração',
+        'Limpeza / serviços gerais',
+        'Outro'
+      ],
+      next: {
+        'Tecnologia / TI': 'experienciaFR',
+        'Construção civil': 'experienciaFR',
+        'Hotelaria / turismo': 'experienciaFR',
+        'Saúde': 'experienciaFR',
+        'Restauração': 'experienciaFR',
+        'Limpeza / serviços gerais': 'experienciaFR',
+        'Outro': 'experienciaFR'
+      }
+    },
+
+    {
+      id: 'experienciaFR',
+      question: 'Você possui experiência profissional comprovada?',
+      type: 'radio',
+      options: [
+        'Mais de 5 anos',
+        'Entre 1 e 5 anos',
+        'Menos de 1 ano',
+        'Não tenho experiência'
+      ],
+      next: {
+        'Mais de 5 anos': 'idiomaFR',
+        'Entre 1 e 5 anos': 'idiomaFR',
+        'Menos de 1 ano': 'questionFamily',
+        'Não tenho experiência': 'negativeResult'
+      }
+    },
+
+    {
+      id: 'idiomaFR',
+      question: 'Qual seu nível de francês?',
+      type: 'radio',
+      options: [
+        'Fluente',
+        'Intermediário',
+        'Básico',
+        'Não falo francês'
+      ],
+      next: {
+        'Fluente': 'documentosFR',
+        'Intermediário': 'documentosFR',
+        'Básico': 'questionFamily',
+        'Não falo francês': 'questionFamily'
+      }
+    },
+
+    {
+      id: 'documentosFR',
+      question: 'Você possui passaporte válido e documentos profissionais?',
+      type: 'radio',
+      options: [
+        'Sim, tudo válido',
+        'Parcialmente',
+        'Não possuo'
+      ],
+      next: {
+        'Sim, tudo válido': 'moradiaFR',
+        'Parcialmente': 'questionFamily',
+        'Não possuo': 'negativeResult'
+      }
+    },
+
+    {
+      id: 'moradiaFR',
+      question: 'Você possui plano de moradia na França?',
+      type: 'radio',
+      options: [
+        'Sim, já tenho endereço',
+        'Tenho opções em vista',
+        'Ainda não tenho'
+      ],
+      next: {
+        'Sim, já tenho endereço': 'historicoMigratorioFR',
+        'Tenho opções em vista': 'historicoMigratorioFR',
+        'Ainda não tenho': 'questionFamily'
+      }
+    },
+
+    {
+      id: 'historicoMigratorioFR',
+      question: 'Você já teve visto recusado para França ou outro país europeu?',
+      type: 'radio',
+      options: [
+        'Não',
+        'Sim, uma vez',
+        'Sim, mais de uma vez'
+      ],
+      next: {
+        'Não': 'antecedentesFR',
+        'Sim, uma vez': 'questionFamily',
+        'Sim, mais de uma vez': 'negativeResult'
+      }
+    },
+
+    {
+      id: 'antecedentesFR',
+      question: 'Você possui antecedentes criminais?',
+      type: 'radio',
+      options: [
+        'Não',
+        'Sim'
+      ],
+      next: {
+        'Não': 'positiveResult',
+        'Sim': 'negativeResult'
+      }
+    },
+
+    //PVT FR
+    {
+      id: 'pvtFrance',
+      question: 'Qual sua idade?',
+      type: 'radio',
+      options: [
+        '18 a 30 anos',
+        '31 a 35 anos',
+        'Menos de 18',
+        'Mais de 35'
+      ],
+      next: {
+        '18 a 30 anos': 'nacionalidadePVTFR',
+        '31 a 35 anos': 'negativeResult',
+        'Menos de 18': 'negativeResult',
+        'Mais de 35': 'negativeResult'
+      }
+    },
+
+    {
+      id: 'nacionalidadePVTFR',
+      question: 'Qual sua nacionalidade?',
+      type: 'radio',
+      options: [
+        'Brasileira',
+        'Argentina',
+        'Chilena',
+        'Colombiana',
+        'Outra'
+      ],
+      next: {
+        'Brasileira': 'passaportePVTFR',
+        'Argentina': 'passaportePVTFR',
+        'Chilena': 'passaportePVTFR',
+        'Colombiana': 'passaportePVTFR',
+        'Outra': 'questionFamily'
+      }
+    },
+
+    {
+      id: 'passaportePVTFR',
+      question: 'Você possui passaporte válido?',
+      type: 'radio',
+      options: [
+        'Sim',
+        'Está vencendo',
+        'Não'
+      ],
+      next: {
+        'Sim': 'primeiroPVTFR',
+        'Está vencendo': 'questionFamily',
+        'Não': 'negativeResult'
+      }
+    },
+
+    {
+      id: 'primeiroPVTFR',
+      question: 'Será sua primeira participação no programa férias-trabalho francês?',
+      type: 'radio',
+      options: [
+        'Sim',
+        'Não'
+      ],
+      next: {
+        'Sim': 'financeiroPVTFR',
+        'Não': 'negativeResult'
+      }
+    },
+
+    {
+      id: 'financeiroPVTFR',
+      question: 'Você possui recursos financeiros para início da estadia na França?',
+      type: 'radio',
+      options: [
+        'Sim, tenho reserva financeira',
+        'Tenho parcialmente',
+        'Não tenho'
+      ],
+      next: {
+        'Sim, tenho reserva financeira': 'seguroSaudePVTFR',
+        'Tenho parcialmente': 'questionFamily',
+        'Não tenho': 'negativeResult'
+      }
+    },
+
+    {
+      id: 'seguroSaudePVTFR',
+      question: 'Você possui ou pretende contratar seguro saúde internacional?',
+      type: 'radio',
+      options: [
+        'Sim',
+        'Ainda não',
+        'Não'
+      ],
+      next: {
+        'Sim': 'idiomaPVTFR',
+        'Ainda não': 'questionFamily',
+        'Não': 'negativeResult'
+      }
+    },
+
+    {
+      id: 'idiomaPVTFR',
+      question: 'Qual seu nível de francês?',
+      type: 'radio',
+      options: [
+        'Fluente',
+        'Intermediário',
+        'Básico',
+        'Não falo francês'
+      ],
+      next: {
+        'Fluente': 'objetivoPVTFR',
+        'Intermediário': 'objetivoPVTFR',
+        'Básico': 'questionFamily',
+        'Não falo francês': 'questionFamily'
+      }
+    },
+
+    {
+      id: 'objetivoPVTFR',
+      question: 'Qual seu principal objetivo na França?',
+      type: 'radio',
+      options: [
+        'Trabalhar e viajar',
+        'Conhecer cultura francesa',
+        'Melhorar idioma',
+        'Migrar futuramente',
+        'Ainda não sei'
+      ],
+      next: {
+        'Trabalhar e viajar': 'historicoMigratorioPVTFR',
+        'Conhecer cultura francesa': 'historicoMigratorioPVTFR',
+        'Melhorar idioma': 'historicoMigratorioPVTFR',
+        'Migrar futuramente': 'questionFamily',
+        'Ainda não sei': 'questionFamily'
+      }
+    },
+
+    {
+      id: 'historicoMigratorioPVTFR',
+      question: 'Você já teve visto recusado para França ou Europa?',
+      type: 'radio',
+      options: [
+        'Não',
+        'Sim, uma vez',
+        'Sim, mais de uma vez'
+      ],
+      next: {
+        'Não': 'antecedentesPVTFR',
+        'Sim, uma vez': 'questionFamily',
+        'Sim, mais de uma vez': 'negativeResult'
+      }
+    },
+
+    {
+      id: 'antecedentesPVTFR',
+      question: 'Você possui antecedentes criminais?',
+      type: 'radio',
+      options: [
+        'Não',
+        'Sim'
+      ],
+      next: {
+        'Não': 'positiveResult',
+        'Sim': 'negativeResult'
+      }
+    },
+
+    //Visto Estudante FR
+    {
+      id: 'visaEstudanteFR',
+      question: 'Você já foi aceito(a) em uma instituição de ensino na França?',
+      type: 'radio',
+      options: [
+        'Sim, já tenho carta de aceitação',
+        'Estou em processo de candidatura',
+        'Ainda não me candidatei'
+      ],
+      next: {
+        'Sim, já tenho carta de aceitação': 'tipoCursoFR',
+        'Estou em processo de candidatura': 'instituicaoFR',
+        'Ainda não me candidatei': 'negativeResult'
+      }
+    },
+
+    {
+      id: 'instituicaoFR',
+      question: 'Você já escolheu a instituição de ensino?',
+      type: 'radio',
+      options: [
+        'Sim',
+        'Ainda não'
+      ],
+      next: {
+        'Sim': 'tipoCursoFR',
+        'Ainda não': 'questionFamily'
+      }
+    },
+
+    {
+      id: 'tipoCursoFR',
+      question: 'Qual tipo de curso você pretende fazer na França?',
+      type: 'radio',
+      options: [
+        'Graduação',
+        'Mestrado',
+        'Doutorado',
+        'Curso técnico',
+        'Curso de francês',
+        'Intercâmbio'
+      ],
+      next: {
+        'Graduação': 'idiomaEstudanteFR',
+        'Mestrado': 'idiomaEstudanteFR',
+        'Doutorado': 'idiomaEstudanteFR',
+        'Curso técnico': 'idiomaEstudanteFR',
+        'Curso de francês': 'idiomaEstudanteFR',
+        'Intercâmbio': 'idiomaEstudanteFR'
+      }
+    },
+
+    {
+      id: 'idiomaEstudanteFR',
+      question: 'Qual seu nível de francês?',
+      type: 'radio',
+      options: [
+        'Fluente',
+        'Intermediário',
+        'Básico',
+        'Não falo francês'
+      ],
+      next: {
+        'Fluente': 'financeiroEstudanteFR',
+        'Intermediário': 'financeiroEstudanteFR',
+        'Básico': 'questionFamily',
+        'Não falo francês': 'questionFamily'
+      }
+    },
+
+    {
+      id: 'financeiroEstudanteFR',
+      question: 'Você possui recursos financeiros para estudar e viver na França?',
+      type: 'radio',
+      options: [
+        'Sim, totalmente',
+        'Parcialmente',
+        'Não tenho recursos suficientes'
+      ],
+      next: {
+        'Sim, totalmente': 'moradiaEstudanteFR',
+        'Parcialmente': 'questionFamily',
+        'Não tenho recursos suficientes': 'negativeResult'
+      }
+    },
+
+    {
+      id: 'moradiaEstudanteFR',
+      question: 'Você já possui plano de moradia na França?',
+      type: 'radio',
+      options: [
+        'Sim, já tenho endereço',
+        'Estou procurando',
+        'Ainda não pensei nisso'
+      ],
+      next: {
+        'Sim, já tenho endereço': 'documentosEstudanteFR',
+        'Estou procurando': 'documentosEstudanteFR',
+        'Ainda não pensei nisso': 'questionFamily'
+      }
+    },
+
+    {
+      id: 'documentosEstudanteFR',
+      question: 'Você possui passaporte válido e documentos escolares?',
+      type: 'radio',
+      options: [
+        'Sim, tudo pronto',
+        'Parcialmente',
+        'Não possuo'
+      ],
+      next: {
+        'Sim, tudo pronto': 'historicoEstudanteFR',
+        'Parcialmente': 'questionFamily',
+        'Não possuo': 'negativeResult'
+      }
+    },
+
+    {
+      id: 'historicoEstudanteFR',
+      question: 'Você já teve visto recusado anteriormente?',
+      type: 'radio',
+      options: [
+        'Não',
+        'Sim, uma vez',
+        'Sim, mais de uma vez'
+      ],
+      next: {
+        'Não': 'objetivoEstudanteFR',
+        'Sim, uma vez': 'questionFamily',
+        'Sim, mais de uma vez': 'negativeResult'
+      }
+    },
+
+    {
+      id: 'objetivoEstudanteFR',
+      question: 'Qual seu principal objetivo com os estudos na França?',
+      type: 'radio',
+      options: [
+        'Construir carreira internacional',
+        'Aprender francês',
+        'Migrar futuramente',
+        'Experiência cultural',
+        'Ainda não tenho certeza'
+      ],
+      next: {
+        'Construir carreira internacional': 'antecedentesEstudanteFR',
+        'Aprender francês': 'antecedentesEstudanteFR',
+        'Migrar futuramente': 'questionFamily',
+        'Experiência cultural': 'antecedentesEstudanteFR',
+        'Ainda não tenho certeza': 'questionFamily'
+      }
+    },
+
+    {
+      id: 'antecedentesEstudanteFR',
+      question: 'Você possui antecedentes criminais?',
+      type: 'radio',
+      options: [
+        'Não',
+        'Sim'
+      ],
+      next: {
+        'Não': 'positiveResult',
+        'Sim': 'negativeResult'
+      }
+    },
+
+    //Visto Familia FR
+    {
+      id: 'visaFamiliaFR',
+      question: 'Você possui familiar direto vivendo legalmente na França?',
+      type: 'radio',
+      options: [
+        'Sim, cônjuge',
+        'Sim, pai ou mãe',
+        'Sim, filho(a)',
+        'Sim, outro familiar',
+        'Não'
+      ],
+      next: {
+        'Sim, cônjuge': 'statusFamiliarFR',
+        'Sim, pai ou mãe': 'statusFamiliarFR',
+        'Sim, filho(a)': 'statusFamiliarFR',
+        'Sim, outro familiar': 'tipoParentescoFR',
+        'Não': 'negativeResult'
+      }
+    },
+
+    {
+      id: 'tipoParentescoFR',
+      question: 'Qual é o grau de parentesco?',
+      type: 'radio',
+      options: [
+        'Irmão/irmã',
+        'Avô/avó',
+        'Tio/tia',
+        'Outro'
+      ],
+      next: {
+        'Irmão/irmã': 'questionFamily',
+        'Avô/avó': 'questionFamily',
+        'Tio/tia': 'questionFamily',
+        'Outro': 'questionFamily'
+      }
+    },
+
+    {
+      id: 'statusFamiliarFR',
+      question: 'Qual a situação legal do seu familiar na França?',
+      type: 'radio',
+      options: [
+        'Cidadão francês',
+        'Residência permanente',
+        'Visto válido',
+        'Em situação irregular',
+        'Não sei'
+      ],
+      next: {
+        'Cidadão francês': 'documentosFamiliaFR',
+        'Residência permanente': 'documentosFamiliaFR',
+        'Visto válido': 'documentosFamiliaFR',
+        'Em situação irregular': 'negativeResult',
+        'Não sei': 'questionFamily'
+      }
+    },
+
+    {
+      id: 'documentosFamiliaFR',
+      question: 'Você possui documentos que comprovem o vínculo familiar?',
+      type: 'radio',
+      options: [
+        'Sim, completos',
+        'Parcialmente',
+        'Não possuo'
+      ],
+      next: {
+        'Sim, completos': 'convivenciaFR',
+        'Parcialmente': 'questionFamily',
+        'Não possuo': 'negativeResult'
+      }
+    },
+
+    {
+      id: 'convivenciaFR',
+      question: 'Você já viveu com esse familiar?',
+      type: 'radio',
+      options: [
+        'Sim, atualmente',
+        'Já vivi anteriormente',
+        'Nunca vivi'
+      ],
+      next: {
+        'Sim, atualmente': 'financeiroFamiliaFR',
+        'Já vivi anteriormente': 'financeiroFamiliaFR',
+        'Nunca vivi': 'financeiroFamiliaFR'
+      }
+    },
+
+    {
+      id: 'financeiroFamiliaFR',
+      question: 'Seu familiar possui condições financeiras para ajudar na sua estadia?',
+      type: 'radio',
+      options: [
+        'Sim',
+        'Parcialmente',
+        'Não'
+      ],
+      next: {
+        'Sim': 'moradiaFamiliaFR',
+        'Parcialmente': 'questionFamily',
+        'Não': 'negativeResult'
+      }
+    },
+
+    {
+      id: 'moradiaFamiliaFR',
+      question: 'Você terá moradia garantida na França?',
+      type: 'radio',
+      options: [
+        'Sim',
+        'Ainda estou organizando',
+        'Não'
+      ],
+      next: {
+        'Sim': 'idiomaFamiliaFR',
+        'Ainda estou organizando': 'questionFamily',
+        'Não': 'negativeResult'
+      }
+    },
+
+    {
+      id: 'idiomaFamiliaFR',
+      question: 'Qual seu nível de francês?',
+      type: 'radio',
+      options: [
+        'Fluente',
+        'Intermediário',
+        'Básico',
+        'Não falo francês'
+      ],
+      next: {
+        'Fluente': 'historicoMigratorioFamiliaFR',
+        'Intermediário': 'historicoMigratorioFamiliaFR',
+        'Básico': 'questionFamily',
+        'Não falo francês': 'questionFamily'
+      }
+    },
+
+    {
+      id: 'historicoMigratorioFamiliaFR',
+      question: 'Você já teve visto recusado para França ou Europa?',
+      type: 'radio',
+      options: [
+        'Não',
+        'Sim, uma vez',
+        'Sim, mais de uma vez'
+      ],
+      next: {
+        'Não': 'antecedentesFamiliaFR',
+        'Sim, uma vez': 'questionFamily',
+        'Sim, mais de uma vez': 'negativeResult'
+      }
+    },
+
+    {
+      id: 'antecedentesFamiliaFR',
+      question: 'Você possui antecedentes criminais?',
+      type: 'radio',
+      options: [
+        'Não',
+        'Sim'
+      ],
+      next: {
+        'Não': 'positiveResult',
+        'Sim': 'negativeResult'
+      }
+    },
+
+    //NACIONALIDADE FR
+    {
+      id: 'nacionalidadeFR',
+      question: 'Por qual via você deseja solicitar a nacionalidade francesa?',
+      type: 'radio',
+      options: [
+        'Por residência legal na França',
+        'Por casamento com cidadão francês',
+        'Por nascimento / filiação',
+        'Por naturalização (caso geral)',
+        'Não tenho certeza'
+      ],
+      next: {
+        'Por residência legal na França': 'residenciaNacionalidadeFR',
+        'Por casamento com cidadão francês': 'casamentoNacionalidadeFR',
+        'Por nascimento / filiação': 'filiaçãoNacionalidadeFR',
+        'Por naturalização (caso geral)': 'naturalizacaoNacionalidadeFR',
+        'Não tenho certeza': 'questionFamily'
+      }
+    },
+
+    {
+      id: 'residenciaNacionalidadeFR',
+      question: 'Há quanto tempo você reside legalmente na França?',
+      type: 'radio',
+      options: [
+        'Menos de 2 anos',
+        '2 a 5 anos',
+        'Mais de 5 anos',
+        'Nunca residi na França'
+      ],
+      next: {
+        'Menos de 2 anos': 'negativeResult',
+        '2 a 5 anos': 'statusResidenciaFR',
+        'Mais de 5 anos': 'statusResidenciaFR',
+        'Nunca residi na França': 'negativeResult'
+      }
+    },
+
+    {
+      id: 'statusResidenciaFR',
+      question: 'Qual seu status atual na França?',
+      type: 'radio',
+      options: [
+        'Visto válido',
+        'Titre de séjour (residência)',
+        'Cidadão europeu residente',
+        'Sem status legal'
+      ],
+      next: {
+        'Visto válido': 'integracaoFR',
+        'Titre de séjour (residência)': 'integracaoFR',
+        'Cidadão europeu residente': 'integracaoFR',
+        'Sem status legal': 'negativeResult'
+      }
+    },
+
+    {
+      id: 'casamentoNacionalidadeFR',
+      question: 'Você é casado(a) ou vive em união estável com cidadão francês?',
+      type: 'radio',
+      options: [
+        'Casado(a)',
+        'União estável (PACS)',
+        'Sim, mas não formalizado',
+        'Não'
+      ],
+      next: {
+        'Casado(a)': 'tempoCasamentoFR',
+        'União estável (PACS)': 'tempoCasamentoFR',
+        'Sim, mas não formalizado': 'questionFamily',
+        'Não': 'negativeResult'
+      }
+    },
+
+    {
+      id: 'tempoCasamentoFR',
+      question: 'Há quanto tempo você está nesta relação?',
+      type: 'radio',
+      options: [
+        'Menos de 1 ano',
+        '1 a 3 anos',
+        'Mais de 3 anos'
+      ],
+      next: {
+        'Menos de 1 ano': 'questionFamily',
+        '1 a 3 anos': 'integracaoFR',
+        'Mais de 3 anos': 'integracaoFR'
+      }
+    },
+
+    {
+      id: 'filiaçãoNacionalidadeFR',
+      question: 'Você possui pai/mãe francês ou nascido na França?',
+      type: 'radio',
+      options: [
+        'Sim, pai francês',
+        'Sim, mãe francesa',
+        'Sim, ambos',
+        'Sim, mas não tenho documentos',
+        'Não'
+      ],
+      next: {
+        'Sim, pai francês': 'documentosFiliaçãoFR',
+        'Sim, mãe francesa': 'documentosFiliaçãoFR',
+        'Sim, ambos': 'documentosFiliaçãoFR',
+        'Sim, mas não tenho documentos': 'questionFamily',
+        'Não': 'negativeResult'
+      }
+    },
+
+    {
+      id: 'documentosFiliaçãoFR',
+      question: 'Você possui documentos que comprovem a filiação?',
+      type: 'radio',
+      options: [
+        'Sim, completos',
+        'Parcialmente',
+        'Não possuo'
+      ],
+      next: {
+        'Sim, completos': 'integracaoFR',
+        'Parcialmente': 'questionFamily',
+        'Não possuo': 'negativeResult'
+      }
+    },
+
+    {
+      id: 'naturalizacaoNacionalidadeFR',
+      question: 'Você já residiu legalmente na França anteriormente?',
+      type: 'radio',
+      options: [
+        'Sim',
+        'Não',
+        'Parcialmente'
+      ],
+      next: {
+        'Sim': 'integracaoFR',
+        'Parcialmente': 'questionFamily',
+        'Não': 'negativeResult'
+      }
+    },
+
+    {
+      id: 'integracaoFR',
+      question: 'Você possui integração com a sociedade francesa (trabalho, idioma, impostos)?',
+      type: 'radio',
+      options: [
+        'Sim, totalmente integrado',
+        'Parcialmente integrado',
+        'Ainda não estou integrado'
+      ],
+      next: {
+        'Sim, totalmente integrado': 'idiomaNacionalidadeFR',
+        'Parcialmente integrado': 'questionFamily',
+        'Ainda não estou integrado': 'questionFamily'
+      }
+    },
+
+    {
+      id: 'idiomaNacionalidadeFR',
+      question: 'Qual seu nível de francês?',
+      type: 'radio',
+      options: [
+        'Fluente',
+        'Intermediário',
+        'Básico',
+        'Não falo francês'
+      ],
+      next: {
+        'Fluente': 'antecedentesNacionalidadeFR',
+        'Intermediário': 'antecedentesNacionalidadeFR',
+        'Básico': 'questionFamily',
+        'Não falo francês': 'questionFamily'
+      }
+    },
+
+    {
+      id: 'antecedentesNacionalidadeFR',
+      question: 'Você possui antecedentes criminais?',
+      type: 'radio',
+      options: [
+        'Não',
+        'Sim'
+      ],
+      next: {
+        'Não': 'positiveResult',
+        'Sim': 'negativeResult'
+      }
+    },
+    //AJUDA SOCIAL FR
+    {
+      id: 'socialFR',
+      question: 'Qual tipo de ajuda social você deseja na França?',
+      type: 'radio',
+      options: [
+        'Ajuda para moradia (CAF)',
+        'Auxílio desemprego (France Travail)',
+        'Ajuda financeira emergencial',
+        'Auxílio saúde (Sécurité Sociale)',
+        'Ajuda para família com filhos',
+        'Não sei qual se aplica ao meu caso'
+      ],
+      next: {
+        'Ajuda para moradia (CAF)': 'situacaoMoradiaFR',
+        'Auxílio desemprego (France Travail)': 'situacaoTrabalhoFR',
+        'Ajuda financeira emergencial': 'situacaoFinanceiraFR',
+        'Auxílio saúde (Sécurité Sociale)': 'situacaoSaudeFR',
+        'Ajuda para família com filhos': 'situacaoFamiliaFR',
+        'Não sei qual se aplica ao meu caso': 'questionFamily'
+      }
+    },
+
+    {
+      id: 'situacaoMoradiaFR',
+      question: 'Você possui contrato de aluguel na França?',
+      type: 'radio',
+      options: [
+        'Sim',
+        'Não',
+        'Estou em alojamento temporário'
+      ],
+      next: {
+        'Sim': 'rendaMoradiaFR',
+        'Não': 'questionFamily',
+        'Estou em alojamento temporário': 'questionFamily'
+      }
+    },
+
+    {
+      id: 'rendaMoradiaFR',
+      question: 'Sua renda atual está registrada na França?',
+      type: 'radio',
+      options: [
+        'Sim, renda estável',
+        'Sim, renda baixa',
+        'Não tenho renda'
+      ],
+      next: {
+        'Sim, renda estável': 'documentosSocialFR',
+        'Sim, renda baixa': 'questionFamily',
+        'Não tenho renda': 'questionFamily'
+      }
+    },
+
+    {
+      id: 'situacaoTrabalhoFR',
+      question: 'Você está atualmente desempregado na França?',
+      type: 'radio',
+      options: [
+        'Sim',
+        'Não',
+        'Estou em transição de trabalho'
+      ],
+      next: {
+        'Sim': 'historicoTrabalhoFR',
+        'Não': 'negativeResult',
+        'Estou em transição de trabalho': 'questionFamily'
+      }
+    },
+
+    {
+      id: 'historicoTrabalhoFR',
+      question: 'Você trabalhou na França com contrato formal?',
+      type: 'radio',
+      options: [
+        'Sim, CDI',
+        'Sim, CDD',
+        'Não trabalhei formalmente'
+      ],
+      next: {
+        'Sim, CDI': 'documentosSocialFR',
+        'Sim, CDD': 'documentosSocialFR',
+        'Não trabalhei formalmente': 'questionFamily'
+      }
+    },
+
+    {
+      id: 'situacaoFinanceiraFR',
+      question: 'Sua renda atual é inferior ao mínimo social francês?',
+      type: 'radio',
+      options: [
+        'Sim',
+        'Não sei',
+        'Não'
+      ],
+      next: {
+        'Sim': 'documentosSocialFR',
+        'Não sei': 'questionFamily',
+        'Não': 'negativeResult'
+      }
+    },
+
+    {
+      id: 'situacaoSaudeFR',
+      question: 'Você já está inscrito na Sécurité Sociale?',
+      type: 'radio',
+      options: [
+        'Sim',
+        'Não',
+        'Em processo de inscrição'
+      ],
+      next: {
+        'Sim': 'documentosSocialFR',
+        'Não': 'questionFamily',
+        'Em processo de inscrição': 'questionFamily'
+      }
+    },
+
+    {
+      id: 'situacaoFamiliaFR',
+      question: 'Você possui filhos menores de idade na França?',
+      type: 'radio',
+      options: [
+        'Sim',
+        'Não',
+        'Estou grávida(o)'
+      ],
+      next: {
+        'Sim': 'rendaFamiliaFR',
+        'Não': 'negativeResult',
+        'Estou grávida(o)': 'questionFamily'
+      }
+    },
+
+    {
+      id: 'rendaFamiliaFR',
+      question: 'Sua renda familiar é suficiente para sustentar os filhos?',
+      type: 'radio',
+      options: [
+        'Sim',
+        'Parcialmente',
+        'Não'
+      ],
+      next: {
+        'Sim': 'documentosSocialFR',
+        'Parcialmente': 'questionFamily',
+        'Não': 'questionFamily'
+      }
+    },
+
+    {
+      id: 'documentosSocialFR',
+      question: 'Você possui documentos de residência válidos na França?',
+      type: 'radio',
+      options: [
+        'Sim',
+        'Parcialmente',
+        'Não'
+      ],
+      next: {
+        'Sim': 'antecedentesSocialFR',
+        'Parcialmente': 'questionFamily',
+        'Não': 'negativeResult'
+      }
+    },
+
+    {
+      id: 'antecedentesSocialFR',
+      question: 'Você possui antecedentes criminais?',
+      type: 'radio',
+      options: [
+        'Não',
+        'Sim'
+      ],
+      next: {
+        'Não': 'positiveResult',
+        'Sim': 'negativeResult'
+      }
+    },
+
+
 
     // Portugal Situation
 
@@ -96,7 +1603,7 @@ export class FormFlowService {
         '🛂 Vistos para Portugal': 'vistosPT',
         '🇵🇹 Nacionalidade portuguesa': 'nacionalidadePT',
         '📄 Documentação e legalização': 'docPT',
-        '🚗 Carteira de motorista': 'cnhPT',
+        '🚗 Carteira de motorista': 'cnh',
         '🏠 Integração em Portugal': 'integrationPT',
       }
     },
@@ -1111,7 +2618,7 @@ export class FormFlowService {
 
     //CNH
     {
-      id: 'cnhPT',
+      id: 'cnh',
       question: 'Como podemos ajudar nesse assunto?',
       type: 'radio',
       options: [
